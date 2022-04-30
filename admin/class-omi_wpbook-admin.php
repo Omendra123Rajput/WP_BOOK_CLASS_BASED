@@ -185,4 +185,34 @@ class Omi_wpbook_Admin {
         // register taxonomy
         register_taxonomy('book_category', array('book'), $args);
     }
+	/**
+     * Function to add custom taxonomy 'Book Tags'
+     * This one is non-hierarchical taxonomy
+     *
+     * @since    1.0.2
+     */
+    public function add_custom_taxonomy() {
+        $labels = array(
+            'name'          => __( 'Book Tags', 'omi_wpbook' ),
+            'singular_name' => __( 'Book Tag', 'omi_wpbook' ),
+            'all_items'     => __( 'All Book Tags', 'omi_wpbook' ),
+            'edit_item'     => __( 'Edit Book Tag', 'omi_wpbook' ),
+            'update_item'   => __( 'Update Book Tag', 'omi_wpbook' ),
+            'add_new_item'  => __( 'Add New Book Tag', 'omi_wpbook' ),
+            'new_item_name' => __( 'New Tag Name', 'omi_wpbook' ),
+            'menu_name'     => __( 'Book Tags', 'omi_wpbook' ),
+        );
+
+        $args = array(
+            'hierarchical'      => false,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'rewrite'           => array( 'slug' => 'book_tag' ),
+        );
+
+        // register taxonomy
+        register_taxonomy('book_tag', array('book'), $args);
+    }
+
 }

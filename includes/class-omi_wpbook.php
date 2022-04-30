@@ -179,6 +179,10 @@ class Omi_wpbook {
 		// Hook for registering 'Book Category' hierarchical taxonomy
         $this->loader->add_action( 'init', $plugin_admin, 'hi_add_custom_taxonomy' );
 
+
+        // Hook for registering 'Book Tags' non-hierarchical taxonomy
+        $this->loader->add_action( 'init', $plugin_admin, 'add_custom_taxonomy' );
+
     }
 
     /**
