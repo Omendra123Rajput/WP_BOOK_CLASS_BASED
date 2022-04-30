@@ -176,6 +176,9 @@ class Omi_wpbook {
 		// Hook for registering 'book' custom post type
         $this->loader->add_action( 'init', $plugin_admin, 'add_custom_post_type' );
 
+		// Hook for registering 'Book Category' hierarchical taxonomy
+        $this->loader->add_action( 'init', $plugin_admin, 'hi_add_custom_taxonomy' );
+
     }
 
     /**

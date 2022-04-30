@@ -153,4 +153,36 @@ class Omi_wpbook_Admin {
         register_post_type( 'book', $args );
 
     }
+	/**
+     * Function to add custom taxonomy 'Book Category'
+     * This one is hierarchical taxonomy
+     *
+     * @since    1.0.2
+     */
+	public function hi_add_custom_taxonomy() {
+        $labels = array(
+            'name'               => __( 'Book Categories', 'omi_wpbook' ),
+            'singular_name'      => __( 'Book Category', 'omi_wpbook' ),
+            'search_items'       => __( 'Search Book Categories', 'omi_wpbook' ),
+            'all_items'          => __( 'All Book Categories', 'omi_wpbook' ),
+            'parent_item'        => 'Parent Type',
+            'parent_item_column' => 'Parent Type:',
+            'edit_item'          => __( 'Edit Book Category', 'omi_wpbook' ),
+            'update_item'        => __( 'Update Book Category', 'omi_wpbook' ),
+            'add_new_item'       => __( 'Add New Book Category', 'omi_wpbook' ),
+            'new_item_name'      => __( 'New Category Name', 'omi_wpbook' ),
+            'menu_name'          => __( 'Book Categories', 'omi_wpbook' ),
+        );
+
+        $args = array(
+            'hierarchical'      => true,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'rewrite'           => array( 'slug' => 'book_category' ),
+        );
+
+        // register taxonomy
+        register_taxonomy('book_category', array('book'), $args);
+    }
 }
