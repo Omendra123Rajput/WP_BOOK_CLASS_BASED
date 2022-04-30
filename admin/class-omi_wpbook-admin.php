@@ -119,9 +119,38 @@ class Omi_wpbook_Admin {
      *
      * @since    1.0.1
      */
-    public function add_custom_post_type() {
+	public function add_custom_post_type() {
 
+        $labels = array(
+            'name'          => __( 'Books', 'omi_wpbook' ),
+            'singular_name' => __( 'Book', 'omi_wpbook' ),
+            'add_new'       => __( 'Add Book', 'omi_wpbook' ),
+            'all_items'     => __( 'All Books', 'omi_wpbook' ),
+            'edit_item'     => __( 'Edit Book', 'omi_wpbook' ),
+            'add_new_item'  => __( 'Add New Book', 'omi_wpbook' ),
+            'new_item'      => __( 'Add Book', 'omi_wpbook' ),
+            'view_item'     => __( 'View Book', 'omi_wpbook' ),
+            'search_item'   => __( 'Search Book', 'omi_wpbook' ),
+        );
 
+        $args = array(
+            'labels'          => $labels,
+            'public'          => true,
+            'capability_type' => 'post',
+            'menu_icon'       => 'dashicons-book',
+            'has_archive'     => true,
+            'hierarchical'    => false,
+            'supports'        => array(
+                                    'title',
+                                    'editor',
+                                    'excerpt',
+                                    'thumbnail',
+                                    'revisions',
+                                    'comments',
+                                ),
+        );
 
+        register_post_type( 'book', $args );
 
+    }
 }

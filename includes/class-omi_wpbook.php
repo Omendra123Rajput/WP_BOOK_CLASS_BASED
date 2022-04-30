@@ -173,6 +173,8 @@ class Omi_wpbook {
 
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		// Hook for registering 'book' custom post type
+        $this->loader->add_action( 'init', $plugin_admin, 'add_custom_post_type' );
 
     }
 
