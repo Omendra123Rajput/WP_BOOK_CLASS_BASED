@@ -183,6 +183,12 @@ class Omi_wpbook {
         // Hook for registering 'Book Tags' non-hierarchical taxonomy
         $this->loader->add_action( 'init', $plugin_admin, 'add_custom_taxonomy' );
 
+		// Hook for registering function to add custom Meta Box
+        $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'book_create_meta_box' );
+
+        // Hook for saving meta information on every post save
+        $this->loader->add_action( 'save_post', $plugin_admin, 'book_save_meta_info' );
+
     }
 
     /**

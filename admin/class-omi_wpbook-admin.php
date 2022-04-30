@@ -215,4 +215,88 @@ class Omi_wpbook_Admin {
         register_taxonomy('book_tag', array('book'), $args);
     }
 
+	/**
+     * Function to add custom meta boxes
+     *
+     * @since    1.0.3
+     */
+    public function book_create_meta_box() {
+
+        /**
+         *  add_meta_box(String id, String title, function callback, mixed screen, String context, String priority,
+         *      Array callback_args);
+         * id -> used to store and retrive your meta data
+         * title -> what user sees
+         * callback -> function called
+         * screen -> used to indicate where the metabox is to be displayed
+         * context -> (normal, side) show on right side or in editor column
+         * priority -> (high, default, low) gives priority to display
+         * These four args are enough, rest are optional
+         */
+
+        add_meta_box( 'details', __( 'Additional Information',  'omi_wpbook' ), array( $this, 'book_meta_info_callback' ), 'book' );
+
+    }
+
+    public function book_meta_info_callback( $post ) {
+
+        /**
+         *  Use nonce for verification
+         *
+         * wp_nonce_field( String $action, String $name )
+         *
+         * $action -> Action name. Should give the context to what is taking place. Optional but recommended.
+         * $name ->  Nonce name. This is the name of the nonce hidden form field to be created.
+         */
+        wp_nonce_field( 'book_save_meta_info', 'book_additional_info_nonce' );
+
+        // retrive all information
+        $all_info = get_metadata( 'bookinfo', $post->ID, '_additional_info_key' )[0];
+
+        // RENDER HTML
+        render_custom_metadata( $all_info );
+
+    }
+
+    // support function to save meta info
+    public function book_save_meta_info( $post_id ) {
+
+        // Nonce verification. If nonce does not match, return
+        if ( ! wp_verify_nonce( $_POST[ 'book_additional_info_nonce' ], 'book_save_meta_info' ) ) {
+            return;
+        }
+
+        // If post is being auto saved by wordpress, no need to save meta data
+        if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+            return;
+        }
+
+        // make sure user has permission to change meta data
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return;
+        }
+
+        // collect and sanitize data
+        $author_name = sanitize_text_field( $_POST[ 'book_author_name_field' ] );
+        $price       = sanitize_text_field( $_POST[ 'book_price_field' ] );
+        $publisher   = sanitize_text_field( $_POST[ 'book_publisher_field' ] );
+        $year        = sanitize_text_field( $_POST[ 'book_year_field' ] );
+        $edition     = sanitize_text_field( $_POST[ 'book_edition_field' ] );
+        $url         = sanitize_text_field( $_POST[ 'book_url_field' ] );
+
+        // push all info to db as an array
+        $all_info = array(
+            'author_name' => $author_name,
+            'price'       => $price,
+            'publisher'   => $publisher,
+            'year'        => $year,
+            'edition'     => $edition,
+            'url'         => $url,
+        );
+
+        // update the data to db
+        update_metadata( 'bookinfo', $post_id, '_additional_info_key', $all_info );
+    }
+
+
 }
