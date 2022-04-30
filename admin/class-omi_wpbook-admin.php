@@ -347,6 +347,43 @@ class Omi_wpbook_Admin {
         return;
     }
 
+	/**
+     * Function for our settings page
+     *
+     * @since    1.0.5
+     */
+    public function book_settings_page() {
+
+        /**
+         * for adding the settings page under "Settings" menu
+         * add_options_page( $page_title, $menu_title, $capability, $menu_slug, $function );
+        */
+
+        /**
+         * for adding the page under root menu
+         * add_menu_page( string $page_title, string $menu_title, string $capability,
+         *  string $menu_slug, callable $function = '', string $icon_url = '', int $position = null )
+         */
+
+        //'book_render_settings_page' function in : .../admin/partials/omi_wpbook-admin-display.php
+        add_menu_page( __( 'Book Settings', 'omi_wpbook' ), __( 'Book Settings', 'omi_wpbook' ), 'manage_options', 'book-settings', 'book_render_settings_page',
+            'dashicons-chart-pie', '59' );
+    }
+
+    /**
+     * Function for registering settings
+     *
+     * @since    1.0.5
+     */
+    function book_register_settings() {
+        // options page settings
+        register_setting( 'book-settings-group', 'book_settings' );
+
+        // custom widget settings
+        register_setting( 'book-widget-settings-group', 'book_widget_settings' );
+    }
+
+
 
 
 

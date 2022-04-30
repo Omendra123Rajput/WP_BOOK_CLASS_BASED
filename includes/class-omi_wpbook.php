@@ -194,6 +194,12 @@ class Omi_wpbook {
         $this->loader->add_action( 'init', $plugin_admin, 'book_register_custom_table' );
         $this->loader->add_action( 'switch_blog', $plugin_admin, 'book_register_custom_table' );
 
+		// Hook for custom admin options page
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'book_settings_page' );
+
+        // Hook for registering settings
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'book_register_settings' );
+
     }
 
     /**
