@@ -200,6 +200,9 @@ class Omi_wpbook {
         // Hook for registering settings
         $this->loader->add_action( 'admin_init', $plugin_admin, 'book_register_settings' );
 
+		// Hook for registering shortcode
+        $this->loader->add_action( 'init', $plugin_admin, 'book_register_shortcodes' );
+
     }
 
     /**

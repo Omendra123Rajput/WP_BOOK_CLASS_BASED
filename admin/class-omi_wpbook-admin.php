@@ -383,6 +383,70 @@ class Omi_wpbook_Admin {
         register_setting( 'book-widget-settings-group', 'book_widget_settings' );
     }
 
+	/**
+     * Function for adding short code
+     *
+     * @since    1.0.6
+     * @param $atts passed by wordpress. contains user passed shortcode attributes
+     */
+    public function book_add_shortcode( $atts ) {
+
+        global $book_options;
+
+        $atts = shortcode_atts(
+            array(
+                'id'          => '',
+                'author_name' => '',
+                'year'        => '',
+                'category'    => '',
+                'tag'         => '',
+                'publisher'   => '',
+            ), $atts
+        );
+
+        // I probably messed it up here
+        $args = array(
+            'post_type'      => 'book',
+            'post_status'    => 'publish',
+            'posts_per_page' => $book_options[ 'num_of_books' ],
+            'author'         => $atts[ 'author_name' ],
+        );
+
+        if ( $atts[ 'id' ] != '' ) {
+            $args[ 'id' ] = $atts[ 'id' ];
+        }
+
+        if ( $atts[ 'category' ] != '' ) {
+            $args[ 'tax_query' ] = array(
+                array(
+                    'taxonomy' => 'book_category',
+                    'terms'    => array( $atts[ 'category' ] ),
+                    'field'    => 'name',
+                    'operator' => 'IN',
+                ),
+            );
+        }
+
+        if ( $atts[ 'tag' ] != '' ) {
+            $args[ 'tax_query' ] = array(
+                array(
+                    'taxonomy' => 'book_tag',
+                    'terms'    => array( $atts[ 'tag' ] ),
+                    'field'    => 'name',
+                    'operator' => 'IN',
+                ),
+            );
+        }
+
+        // function in : .../admin/partials/omi_wpbook-admin-display.php
+        return render_book_info_shortcode( $args );
+
+    }
+
+    function book_register_shortcodes() {
+        add_shortcode( 'book', array( $this, 'book_add_shortcode' ) );
+    }
+
 
 
 
