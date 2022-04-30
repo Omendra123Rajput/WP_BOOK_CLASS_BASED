@@ -447,6 +447,16 @@ class Omi_wpbook_Admin {
         add_shortcode( 'book', array( $this, 'book_add_shortcode' ) );
     }
 
+	 /**
+     * Function for registering custom widget
+     *
+     * @since    1.1.0
+     */
+    function book_register_widget() {
+        // class in : .../includes/widgets.php
+        register_widget( 'Omi_WPBook_Widget' );
+    }
+
 
 
 
