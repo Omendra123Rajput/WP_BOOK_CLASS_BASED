@@ -328,6 +328,25 @@ class Omi_wpbook_Admin {
         }
 
     }
+	/**
+     * Function to register custom table when plugin is loaded
+     *
+     * @since    1.0.4
+     */
+    public function book_register_custom_table() {
+        // global $wpdb;
+
+        // $wpdb->bookinfometa = $wpdb->prefix . "bookinfometa";
+        // $wpdb->tables[] = 'bookinfometa';
+
+        global $wpdb;
+
+        $wpdb->bookinfometa = $wpdb->prefix . 'book_info_meta';
+        $wpdb->tables[] = 'book_info_meta';
+
+        return;
+    }
+
 
 
 
