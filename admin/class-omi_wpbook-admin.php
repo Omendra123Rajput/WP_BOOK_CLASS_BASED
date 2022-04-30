@@ -457,6 +457,16 @@ class Omi_wpbook_Admin {
         register_widget( 'Omi_WPBook_Widget' );
     }
 
+	 /**
+     * Function for registering dashboard widget
+     *
+     * @since    1.1.0
+     */
+    function booK_register_dash_widget() {
+        // function in : .../admin/partials/omi_wpbook-admin-display.php
+        wp_add_dashboard_widget( 'book_dash_cat_widget', __( 'Top 5 Book Categories', 'omi_wpbook' ), 'book_render_dash_widget' );
+    }
+
 
 
 

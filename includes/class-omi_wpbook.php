@@ -157,6 +157,39 @@ class Omi_wpbook {
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+        // Hook for registering 'book' custom post type
+        $this->loader->add_action( 'init', $plugin_admin, 'add_custom_post_type' );
+
+        // Hook for registering 'Book Category' hierarchical taxonomy
+        $this->loader->add_action( 'init', $plugin_admin, 'hi_add_custom_taxonomy' );
+
+        // Hook for registering 'Book Tags' non-hierarchical taxonomy
+        $this->loader->add_action( 'init', $plugin_admin, 'add_custom_taxonomy' );
+
+        // Hook for registering function to add custom Meta Box
+        $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'book_create_meta_box' );
+
+        // Hook for saving meta information on every post save
+        $this->loader->add_action( 'save_post', $plugin_admin, 'book_save_meta_info' );
+
+        // Hook for registering custom table to metadata api
+        $this->loader->add_action( 'init', $plugin_admin, 'book_register_custom_table' );
+        $this->loader->add_action( 'switch_blog', $plugin_admin, 'book_register_custom_table' );
+
+        // Hook for custom admin options page
+        $this->loader->add_action( 'admin_menu', $plugin_admin, 'book_settings_page' );
+
+        // Hook for registering settings
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'book_register_settings' );
+
+        // Hook for registering shortcode
+        $this->loader->add_action( 'init', $plugin_admin, 'book_register_shortcodes' );
+
+        // Hook for registering widgets
+        $this->loader->add_action( 'widgets_init', $plugin_admin, 'book_register_widget' );
+
+        // Hook for registering custom dashboard widget
+        $this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'book_register_dash_widget' );
 
     }
 
@@ -173,38 +206,6 @@ class Omi_wpbook {
 
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-		// Hook for registering 'book' custom post type
-        $this->loader->add_action( 'init', $plugin_admin, 'add_custom_post_type' );
-
-		// Hook for registering 'Book Category' hierarchical taxonomy
-        $this->loader->add_action( 'init', $plugin_admin, 'hi_add_custom_taxonomy' );
-
-
-        // Hook for registering 'Book Tags' non-hierarchical taxonomy
-        $this->loader->add_action( 'init', $plugin_admin, 'add_custom_taxonomy' );
-
-		// Hook for registering function to add custom Meta Box
-        $this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'book_create_meta_box' );
-
-        // Hook for saving meta information on every post save
-        $this->loader->add_action( 'save_post', $plugin_admin, 'book_save_meta_info' );
-
-
-        // Hook for registering custom table to metadata api
-        $this->loader->add_action( 'init', $plugin_admin, 'book_register_custom_table' );
-        $this->loader->add_action( 'switch_blog', $plugin_admin, 'book_register_custom_table' );
-
-		// Hook for custom admin options page
-        $this->loader->add_action( 'admin_menu', $plugin_admin, 'book_settings_page' );
-
-        // Hook for registering settings
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'book_register_settings' );
-
-		// Hook for registering shortcode
-        $this->loader->add_action( 'init', $plugin_admin, 'book_register_shortcodes' );
-
-		// Hook for registering widgets
-        $this->loader->add_action( 'widgets_init', $plugin_admin, 'book_register_widget' );
 
     }
 
