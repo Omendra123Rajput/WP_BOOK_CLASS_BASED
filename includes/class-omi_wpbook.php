@@ -189,6 +189,11 @@ class Omi_wpbook {
         // Hook for saving meta information on every post save
         $this->loader->add_action( 'save_post', $plugin_admin, 'book_save_meta_info' );
 
+
+        // Hook for registering custom table to metadata api
+        $this->loader->add_action( 'init', $plugin_admin, 'book_register_custom_table' );
+        $this->loader->add_action( 'switch_blog', $plugin_admin, 'book_register_custom_table' );
+
     }
 
     /**

@@ -297,6 +297,39 @@ class Omi_wpbook_Admin {
         // update the data to db
         update_metadata( 'bookinfo', $post_id, '_additional_info_key', $all_info );
     }
+	/**
+     * Function to create a custom table when plugin is loaded
+     *
+     * Function is being called by activation hook registered in 'omi_wpbook.php'
+     *
+     * @since    1.0.4
+     */
+    public function book_create_custom_table() {
+
+        global $wpdb;
+        $charset_collate = $wpdb->get_charset_collate();
+        $table_name = $wpdb->prefix . 'book_info_meta';
+
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+        if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) != $table_name ) {
+            $query = "CREATE TABLE " .
+                $table_name . "(
+                meta_id bigint(20) NOT NULL AUTO_INCREMENT,
+                bookinfo_id bigint(20) NOT NULL DEFAULT '0',
+                meta_key varchar(255) DEFAULT NULL,
+                meta_value longtext,
+                PRIMARY KEY  (meta_id),
+                KEY bookinfo_id (bookinfo_id),
+                KEY meta_key (meta_key)
+            )" . $charset_collate . ";";
+
+            dbDelta( $query );
+        }
+
+    }
+
+
 
 
 }
