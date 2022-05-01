@@ -24,8 +24,10 @@
 /**
  * includes
  */
-// for rendering shortcode's front-end and custom option page
+// for rendering settings option page
 require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/omi_wpbook-admin-display.php' );
+// for rendering shortcode's front-end and custom option page
+require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'public/partials/omi_wpbook-public-display.php' );
 
 // for widget class
 require_once( plugin_dir_path( dirname( __FILE__ ) ) . 'includes/widgets.php' );
@@ -119,7 +121,7 @@ class Omi_wpbook_Admin {
      *
      * @since    1.0.1
      */
-	public function add_custom_post_type() {
+    public function add_custom_post_type() {
 
         $labels = array(
             'name'          => __( 'Books', 'omi_wpbook' ),
@@ -153,7 +155,8 @@ class Omi_wpbook_Admin {
         register_post_type( 'book', $args );
 
     }
-	/**
+
+    /**
      * Function to add custom taxonomy 'Book Category'
      * This one is hierarchical taxonomy
      *
@@ -185,7 +188,7 @@ class Omi_wpbook_Admin {
         // register taxonomy
         register_taxonomy('book_category', array('book'), $args);
     }
-	/**
+    /**
      * Function to add custom taxonomy 'Book Tags'
      * This one is non-hierarchical taxonomy
      *
@@ -215,7 +218,8 @@ class Omi_wpbook_Admin {
         register_taxonomy('book_tag', array('book'), $args);
     }
 
-	/**
+
+    /**
      * Function to add custom meta boxes
      *
      * @since    1.0.3
@@ -297,7 +301,8 @@ class Omi_wpbook_Admin {
         // update the data to db
         update_metadata( 'bookinfo', $post_id, '_additional_info_key', $all_info );
     }
-	/**
+
+    /**
      * Function to create a custom table when plugin is loaded
      *
      * Function is being called by activation hook registered in 'omi_wpbook.php'
@@ -328,7 +333,9 @@ class Omi_wpbook_Admin {
         }
 
     }
-	/**
+
+
+    /**
      * Function to register custom table when plugin is loaded
      *
      * @since    1.0.4
@@ -347,7 +354,7 @@ class Omi_wpbook_Admin {
         return;
     }
 
-	/**
+    /**
      * Function for our settings page
      *
      * @since    1.0.5
@@ -383,7 +390,7 @@ class Omi_wpbook_Admin {
         register_setting( 'book-widget-settings-group', 'book_widget_settings' );
     }
 
-	/**
+    /**
      * Function for adding short code
      *
      * @since    1.0.6
@@ -438,7 +445,7 @@ class Omi_wpbook_Admin {
             );
         }
 
-        // function in : .../admin/partials/omi_wpbook-admin-display.php
+        // function in : .../public/partials/omi_wpbook-public-display.php
         return render_book_info_shortcode( $args );
 
     }
@@ -447,7 +454,7 @@ class Omi_wpbook_Admin {
         add_shortcode( 'book', array( $this, 'book_add_shortcode' ) );
     }
 
-	 /**
+    /**
      * Function for registering custom widget
      *
      * @since    1.1.0
@@ -457,7 +464,7 @@ class Omi_wpbook_Admin {
         register_widget( 'Omi_WPBook_Widget' );
     }
 
-	 /**
+    /**
      * Function for registering dashboard widget
      *
      * @since    1.1.0
@@ -466,10 +473,6 @@ class Omi_wpbook_Admin {
         // function in : .../admin/partials/omi_wpbook-admin-display.php
         wp_add_dashboard_widget( 'book_dash_cat_widget', __( 'Top 5 Book Categories', 'omi_wpbook' ), 'book_render_dash_widget' );
     }
-
-
-
-
 
 
 }
