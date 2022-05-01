@@ -411,7 +411,7 @@ class Omi_wpbook_Admin {
             ), $atts
         );
 
-        // I probably messed it up here
+
         $args = array(
             'post_type'      => 'book',
             'post_status'    => 'publish',
